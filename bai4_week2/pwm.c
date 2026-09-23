@@ -44,6 +44,6 @@ void PWM_TIM2_Init(void){
      TIM2 -> CCMR2 |= (1 << 11);
      TIM2 -> CCER |= (1 << 12);
      TIM2 -> CR1 |= (1 << 7);
-     TIM2 -> CCR1 |= 70;
+     TIM2 -> CCR4 = 700;
      TIM2 -> CR1 |= (1 << 0);
 } 
