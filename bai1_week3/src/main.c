@@ -1,5 +1,4 @@
 #include "stm32f103.h"
-#include "uart.h"
 #include "i2c.h"
 #include "ssd1306.h"
 
@@ -29,22 +28,22 @@ static void fill_rect(int x, int y, int w, int h)
 
 static void draw_H(int x, int y)
 {
-    fill_rect(x, y, STROKE, HEIGHT);                          /* nét đứng trái */
-    fill_rect(x + LETTER_W - STROKE, y, STROKE, HEIGHT);      /* nét đứng phải */
-    fill_rect(x, y + (HEIGHT - STROKE) / 2, LETTER_W, STROKE);/* nét ngang giữa */
+    fill_rect(x, y, STROKE, HEIGHT);
+    fill_rect(x + LETTER_W - STROKE, y, STROKE, HEIGHT);
+    fill_rect(x, y + (HEIGHT - STROKE) / 2, LETTER_W, STROKE);
 }
 
 static void draw_T(int x, int y)
 {
-    fill_rect(x, y, LETTER_W, STROKE);                        /* nét ngang trên */
-    fill_rect(x + (LETTER_W - STROKE) / 2, y, STROKE, HEIGHT);/* nét đứng giữa */
+    fill_rect(x, y, LETTER_W, STROKE);
+    fill_rect(x + (LETTER_W - STROKE) / 2, y, STROKE, HEIGHT);
 }
 
 static void draw_N(int x, int y)
 {
-    fill_rect(x, y, STROKE, HEIGHT);                          /* nét đứng trái */
-    fill_rect(x + LETTER_W - STROKE, y, STROKE, HEIGHT);      /* nét đứng phải */
-    for (int i = 0; i < HEIGHT; i++)                          /* nét chéo: mỗi hàng dịch sang phải */
+    fill_rect(x, y, STROKE, HEIGHT);
+    fill_rect(x + LETTER_W - STROKE, y, STROKE, HEIGHT);
+    for (int i = 0; i < HEIGHT; i++)
         fill_rect(x + (LETTER_W - STROKE) * i / (HEIGHT - 1), y + i, STROKE, 1);
 }
 
@@ -55,11 +54,15 @@ int main(void)
     GPIOC->CRH &= ~(0xFu << 20);
     GPIOC->CRH |=  (0x2u << 20);
 
-    uart_init();
     i2c1_init();
 
-    uart_puts("\r\n== Bai 01: I2C + SSD1306 ==\r\n");
-    i2c1_scan();
+    /* Không thấy OLED trên bus: nháy LED nhanh mãi mãi */
+    if (i2c1_write(SSD1306_ADDR, 0, 0) != 0) {
+        while (1) {
+            GPIOC->ODR ^= (1u << 13);
+            delay_ms(100);
+        }
+    }
 
     ssd1306_init();
     ssd1306_clear();
@@ -69,10 +72,9 @@ int main(void)
     draw_N(N_X, TOP);
 
     ssd1306_update();
-    uart_puts("OLED updated\r\n");
 
     while (1) {
-        GPIOC->ODR ^= (1u << 13);       /* nháy LED */
+        GPIOC->ODR ^= (1u << 13);       /* nháy LED chậm: chạy bình thường */
         delay_ms(500);
     }
 }

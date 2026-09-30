@@ -1,7 +1,5 @@
-/* src/i2c.c */
 #include "stm32f103.h"
 #include "i2c.h"
-#include "uart.h"
 
 static int wait_flag(volatile uint32_t *reg, uint32_t mask)
 {
@@ -55,15 +53,4 @@ err:
     I2C1->CR1 |= I2C_CR1_STOP;
     for (volatile int i = 0; i < 2000; i++);
     return -1;
-}
-
-void i2c1_scan(void)
-{
-    uart_puts("I2C scan:\r\n");
-    for (uint8_t a = 1; a < 128; a++) {
-        if (i2c1_write(a, 0, 0) == 0) {
-            uart_puts("  found "); uart_puthex8(a); uart_puts("\r\n");
-        }
-    }
-    uart_puts("scan done\r\n");
 }

@@ -21,9 +21,6 @@ Discarded input sections
  .text          0x00000000        0x0 build/startup.o
  .data          0x00000000        0x0 build/startup.o
  .bss           0x00000000        0x0 build/startup.o
- .text          0x00000000        0x0 build/uart.o
- .data          0x00000000        0x0 build/uart.o
- .bss           0x00000000        0x0 build/uart.o
  .data          0x00000000        0x0 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
  .bss           0x00000000        0x0 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
  .ARM.extab     0x00000000        0x0 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
@@ -43,7 +40,6 @@ LOAD build/i2c.o
 LOAD build/main.o
 LOAD build/ssd1306.o
 LOAD build/startup.o
-LOAD build/uart.o
 START GROUP
 LOAD /usr/lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/libgcc.a
 LOAD /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a
@@ -65,7 +61,7 @@ END GROUP
  .isr_vector    0x08000000       0x40 build/startup.o
                 0x08000000                vector_table
 
-.text           0x08000040      0x62c
+.text           0x08000040      0x500
  *(.text*)
  .text.wait_flag.constprop.0
                 0x08000040       0x20 build/i2c.o
@@ -75,107 +71,82 @@ END GROUP
  .text.i2c1_write
                 0x080000b4       0xa0 build/i2c.o
                 0x080000b4                i2c1_write
- .text.i2c1_scan
-                0x08000154       0x4c build/i2c.o
-                0x08000154                i2c1_scan
  .text.fill_rect
-                0x080001a0       0x2a build/main.o
- *fill*         0x080001ca        0x2 
+                0x08000154       0x2a build/main.o
+ *fill*         0x0800017e        0x2 
  .text.startup.main
-                0x080001cc       0xe8 build/main.o
-                0x080001cc                main
- .text.cmd      0x080002b4       0x1c build/ssd1306.o
+                0x08000180       0xf8 build/main.o
+                0x08000180                main
+ .text.cmd      0x08000278       0x1c build/ssd1306.o
  .text.ssd1306_init
-                0x080002d0       0x34 build/ssd1306.o
-                0x080002d0                ssd1306_init
+                0x08000294       0x34 build/ssd1306.o
+                0x08000294                ssd1306_init
  .text.ssd1306_clear
-                0x08000304       0x10 build/ssd1306.o
-                0x08000304                ssd1306_clear
+                0x080002c8       0x10 build/ssd1306.o
+                0x080002c8                ssd1306_clear
  .text.ssd1306_pixel
-                0x08000314       0x34 build/ssd1306.o
-                0x08000314                ssd1306_pixel
+                0x080002d8       0x34 build/ssd1306.o
+                0x080002d8                ssd1306_pixel
  .text.ssd1306_update
-                0x08000348       0x4c build/ssd1306.o
-                0x08000348                ssd1306_update
+                0x0800030c       0x4c build/ssd1306.o
+                0x0800030c                ssd1306_update
  .text.Default_Handler
-                0x08000394        0x2 build/startup.o
-                0x08000394                DebugMon_Handler
-                0x08000394                HardFault_Handler
-                0x08000394                SysTick_Handler
-                0x08000394                PendSV_Handler
-                0x08000394                NMI_Handler
-                0x08000394                UsageFault_Handler
-                0x08000394                Default_Handler
-                0x08000394                MemManage_Handler
-                0x08000394                SVC_Handler
-                0x08000394                BusFault_Handler
- *fill*         0x08000396        0x2 
+                0x08000358        0x2 build/startup.o
+                0x08000358                DebugMon_Handler
+                0x08000358                HardFault_Handler
+                0x08000358                SysTick_Handler
+                0x08000358                PendSV_Handler
+                0x08000358                NMI_Handler
+                0x08000358                UsageFault_Handler
+                0x08000358                Default_Handler
+                0x08000358                MemManage_Handler
+                0x08000358                SVC_Handler
+                0x08000358                BusFault_Handler
+ *fill*         0x0800035a        0x2 
  .text.Reset_Handler
-                0x08000398       0x40 build/startup.o
-                0x08000398                Reset_Handler
- .text.uart_init
-                0x080003d8       0x3c build/uart.o
-                0x080003d8                uart_init
- .text.uart_putc
-                0x08000414       0x10 build/uart.o
-                0x08000414                uart_putc
- .text.uart_puts
-                0x08000424       0x12 build/uart.o
-                0x08000424                uart_puts
- *fill*         0x08000436        0x2 
- .text.uart_puthex8
-                0x08000438       0x2c build/uart.o
-                0x08000438                uart_puthex8
- .text          0x08000464       0xec /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
-                0x08000464                memcpy
- .text          0x08000550       0x9c /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
-                0x08000550                memset
+                0x0800035c       0x40 build/startup.o
+                0x0800035c                Reset_Handler
+ .text          0x0800039c       0xec /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
+                0x0800039c                memcpy
+ .text          0x08000488       0x9c /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
+                0x08000488                memset
  *(.rodata*)
- .rodata.i2c1_scan.str1.1
-                0x080005ec       0x64 build/i2c.o
-                                 0x24 (size before relaxing)
- .rodata.main.str1.1
-                0x08000650        0x0 build/main.o
-                                 0x2f (size before relaxing)
- .rodata.seq.0  0x08000650       0x19 build/ssd1306.o
- .rodata.uart_puthex8.str1.1
-                0x08000669        0x0 build/uart.o
-                                 0x14 (size before relaxing)
-                0x0800066c                        . = ALIGN (0x4)
- *fill*         0x08000669        0x3 
-                0x08000674                        _sidata = LOADADDR (.data)
+ .rodata.seq.0  0x08000524       0x19 build/ssd1306.o
+                0x08000540                        . = ALIGN (0x4)
+ *fill*         0x0800053d        0x3 
+                0x08000548                        _sidata = LOADADDR (.data)
 
-.glue_7         0x0800066c        0x0
- .glue_7        0x0800066c        0x0 linker stubs
+.glue_7         0x08000540        0x0
+ .glue_7        0x08000540        0x0 linker stubs
 
-.glue_7t        0x0800066c        0x0
- .glue_7t       0x0800066c        0x0 linker stubs
+.glue_7t        0x08000540        0x0
+ .glue_7t       0x08000540        0x0 linker stubs
 
-.vfp11_veneer   0x0800066c        0x0
- .vfp11_veneer  0x0800066c        0x0 linker stubs
+.vfp11_veneer   0x08000540        0x0
+ .vfp11_veneer  0x08000540        0x0 linker stubs
 
-.v4_bx          0x0800066c        0x0
- .v4_bx         0x0800066c        0x0 linker stubs
+.v4_bx          0x08000540        0x0
+ .v4_bx         0x08000540        0x0 linker stubs
 
-.iplt           0x0800066c        0x0
- .iplt          0x0800066c        0x0 build/i2c.o
+.iplt           0x08000540        0x0
+ .iplt          0x08000540        0x0 build/i2c.o
 
-.rel.dyn        0x0800066c        0x0
- .rel.iplt      0x0800066c        0x0 build/i2c.o
+.rel.dyn        0x08000540        0x0
+ .rel.iplt      0x08000540        0x0 build/i2c.o
 
-.ARM.exidx      0x0800066c        0x8
- .ARM.exidx     0x0800066c        0x8 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
+.ARM.exidx      0x08000540        0x8
+ .ARM.exidx     0x08000540        0x8 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
 
-.data           0x20000000        0x0 load address 0x08000674
+.data           0x20000000        0x0 load address 0x08000548
                 0x20000000                        _sdata = .
  *(.data*)
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _edata = .
 
-.igot.plt       0x20000000        0x0 load address 0x08000674
+.igot.plt       0x20000000        0x0 load address 0x08000548
  .igot.plt      0x20000000        0x0 build/i2c.o
 
-.bss            0x20000000      0x400 load address 0x08000674
+.bss            0x20000000      0x400 load address 0x08000548
                 0x20000000                        _sbss = .
  *(.bss*)
  .bss.fb        0x20000000      0x400 build/ssd1306.o
@@ -185,91 +156,80 @@ END GROUP
 OUTPUT(build/bai01.elf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x00000000     0x133c
- .debug_info    0x00000000      0x47a build/i2c.o
- .debug_info    0x0000047a      0x5a8 build/main.o
- .debug_info    0x00000a22      0x3a0 build/ssd1306.o
- .debug_info    0x00000dc2      0x149 build/startup.o
- .debug_info    0x00000f0b      0x2c9 build/uart.o
- .debug_info    0x000011d4       0x33 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
- .debug_info    0x00001207      0x135 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
+.debug_info     0x00000000     0x1184
+ .debug_info    0x00000000      0x45f build/i2c.o
+ .debug_info    0x0000045f      0x6d4 build/main.o
+ .debug_info    0x00000b33      0x3a0 build/ssd1306.o
+ .debug_info    0x00000ed3      0x149 build/startup.o
+ .debug_info    0x0000101c       0x33 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
+ .debug_info    0x0000104f      0x135 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
 
-.debug_abbrev   0x00000000      0x890
- .debug_abbrev  0x00000000      0x20d build/i2c.o
- .debug_abbrev  0x0000020d      0x22d build/main.o
- .debug_abbrev  0x0000043a      0x171 build/ssd1306.o
- .debug_abbrev  0x000005ab       0xeb build/startup.o
- .debug_abbrev  0x00000696      0x11b build/uart.o
- .debug_abbrev  0x000007b1       0x28 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
- .debug_abbrev  0x000007d9       0xb7 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
+.debug_abbrev   0x00000000      0x7bf
+ .debug_abbrev  0x00000000      0x210 build/i2c.o
+ .debug_abbrev  0x00000210      0x274 build/main.o
+ .debug_abbrev  0x00000484      0x171 build/ssd1306.o
+ .debug_abbrev  0x000005f5       0xeb build/startup.o
+ .debug_abbrev  0x000006e0       0x28 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
+ .debug_abbrev  0x00000708       0xb7 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
 
 .debug_loclists
-                0x00000000      0x569
+                0x00000000      0x4fb
  .debug_loclists
-                0x00000000      0x146 build/i2c.o
+                0x00000000      0x121 build/i2c.o
  .debug_loclists
-                0x00000146      0x119 build/main.o
+                0x00000121      0x126 build/main.o
  .debug_loclists
-                0x0000025f       0xca build/ssd1306.o
+                0x00000247       0xca build/ssd1306.o
  .debug_loclists
-                0x00000329       0x6b build/startup.o
+                0x00000311       0x6b build/startup.o
  .debug_loclists
-                0x00000394       0x56 build/uart.o
- .debug_loclists
-                0x000003ea      0x17f /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
+                0x0000037c      0x17f /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
 
-.debug_aranges  0x00000000      0x148
+.debug_aranges  0x00000000      0x108
  .debug_aranges
-                0x00000000       0x38 build/i2c.o
+                0x00000000       0x30 build/i2c.o
  .debug_aranges
-                0x00000038       0x28 build/main.o
+                0x00000030       0x28 build/main.o
  .debug_aranges
-                0x00000060       0x48 build/ssd1306.o
+                0x00000058       0x48 build/ssd1306.o
  .debug_aranges
-                0x000000a8       0x28 build/startup.o
+                0x000000a0       0x28 build/startup.o
  .debug_aranges
-                0x000000d0       0x38 build/uart.o
+                0x000000c8       0x20 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
  .debug_aranges
-                0x00000108       0x20 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
- .debug_aranges
-                0x00000128       0x20 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
+                0x000000e8       0x20 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
 
 .debug_rnglists
-                0x00000000      0x10f
+                0x00000000       0xcf
  .debug_rnglists
-                0x00000000       0x3e build/i2c.o
+                0x00000000       0x38 build/i2c.o
  .debug_rnglists
-                0x0000003e       0x53 build/main.o
+                0x00000038       0x3e build/main.o
  .debug_rnglists
-                0x00000091       0x40 build/ssd1306.o
+                0x00000076       0x40 build/ssd1306.o
  .debug_rnglists
-                0x000000d1       0x19 build/startup.o
- .debug_rnglists
-                0x000000ea       0x25 build/uart.o
+                0x000000b6       0x19 build/startup.o
 
-.debug_line     0x00000000      0xbab
- .debug_line    0x00000000      0x2b7 build/i2c.o
- .debug_line    0x000002b7      0x1fc build/main.o
- .debug_line    0x000004b3      0x246 build/ssd1306.o
- .debug_line    0x000006f9       0xf1 build/startup.o
- .debug_line    0x000007ea      0x161 build/uart.o
- .debug_line    0x0000094b       0xbd /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
- .debug_line    0x00000a08      0x1a3 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
+.debug_line     0x00000000      0xa17
+ .debug_line    0x00000000      0x242 build/i2c.o
+ .debug_line    0x00000242      0x23e build/main.o
+ .debug_line    0x00000480      0x246 build/ssd1306.o
+ .debug_line    0x000006c6       0xf1 build/startup.o
+ .debug_line    0x000007b7       0xbd /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
+ .debug_line    0x00000874      0x1a3 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
 
-.debug_str      0x00000000      0x469
- .debug_str     0x00000000      0x469 build/i2c.o
-                                0x1ea (size before relaxing)
- .debug_str     0x00000469        0x0 build/main.o
-                                0x226 (size before relaxing)
- .debug_str     0x00000469        0x0 build/ssd1306.o
+.debug_str      0x00000000      0x4d5
+ .debug_str     0x00000000      0x4d5 build/i2c.o
+                                0x27d (size before relaxing)
+ .debug_str     0x000004d5        0x0 build/main.o
+                                0x276 (size before relaxing)
+ .debug_str     0x000004d5        0x0 build/ssd1306.o
                                 0x1d6 (size before relaxing)
- .debug_str     0x00000469        0x0 build/startup.o
+ .debug_str     0x000004d5        0x0 build/startup.o
                                 0x190 (size before relaxing)
- .debug_str     0x00000469        0x0 build/uart.o
-                                0x1c2 (size before relaxing)
- .debug_str     0x00000469        0x0 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
+ .debug_str     0x000004d5        0x0 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
                                  0xab (size before relaxing)
- .debug_str     0x00000469        0x0 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
+ .debug_str     0x000004d5        0x0 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
                                 0x1a5 (size before relaxing)
 
 .comment        0x00000000       0x26
@@ -280,8 +240,6 @@ LOAD linker stubs
  .comment       0x00000026        0x0 build/ssd1306.o
                                  0x27 (size before relaxing)
  .comment       0x00000026        0x0 build/startup.o
-                                 0x27 (size before relaxing)
- .comment       0x00000026        0x0 build/uart.o
                                  0x27 (size before relaxing)
  .comment       0x00000026        0x0 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
                                  0x27 (size before relaxing)
@@ -297,20 +255,17 @@ LOAD linker stubs
  .ARM.attributes
                 0x00000087       0x2d build/startup.o
  .ARM.attributes
-                0x000000b4       0x2d build/uart.o
+                0x000000b4       0x1b /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
  .ARM.attributes
-                0x000000e1       0x1b /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
- .ARM.attributes
-                0x000000fc       0x2d /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
+                0x000000cf       0x2d /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
 
-.debug_frame    0x00000000      0x258
- .debug_frame   0x00000000       0x74 build/i2c.o
- .debug_frame   0x00000074       0x48 build/main.o
- .debug_frame   0x000000bc       0xac build/ssd1306.o
- .debug_frame   0x00000168       0x38 build/startup.o
- .debug_frame   0x000001a0       0x64 build/uart.o
- .debug_frame   0x00000204       0x28 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
- .debug_frame   0x0000022c       0x2c /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
+.debug_frame    0x00000000      0x1d8
+ .debug_frame   0x00000000       0x58 build/i2c.o
+ .debug_frame   0x00000058       0x48 build/main.o
+ .debug_frame   0x000000a0       0xac build/ssd1306.o
+ .debug_frame   0x0000014c       0x38 build/startup.o
+ .debug_frame   0x00000184       0x28 /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memcpy.o)
+ .debug_frame   0x000001ac       0x2c /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(libc_a-memset.o)
 
 .debug_line_str
                 0x00000000       0x95

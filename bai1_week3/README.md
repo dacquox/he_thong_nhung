@@ -1,4 +1,3 @@
-# Bài 01: I2C với OLED trên STM32F103 (lập trình thanh ghi)
 
 - Sinh viên: <Pham Truong Phuoc> - MSSV: <B23DCDT195>
 - Vi điều khiển: STM32F103 (Blue Pill), lập trình trực tiếp thanh ghi
@@ -14,7 +13,6 @@
 | SCL | PB6 (I2C1_SCL) |
 | SDA | PB7 (I2C1_SDA) |
 
-UART1 để debug (9600 baud): PA9 (TX) -> RX của USB-UART, PA10 (RX) -> TX của USB-UART.
 
 ## Cấu trúc thư mục
 
@@ -30,5 +28,4 @@ UART1 để debug (9600 baud): PA9 (TX) -> RX của USB-UART, PA10 (RX) -> TX c�
 sudo apt install gcc-arm-none-eabi libnewlib-arm-none-eabi make openocd
 make          # biên dịch
 make flash    # nạp bằng ST-Link
-make serial   # xem log UART (picocom 9600)
 ```
